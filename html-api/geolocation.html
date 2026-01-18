@@ -54,7 +54,7 @@
 				margin: 25px 1px;
 				border: 3.5px double var(--sub-color);
 				border-radius: 5px;
-				width: 400px;
+				min-width: 300px;
 				max-height: 400px;
 				min-height: 350px;
 				transition: 0.2s;
@@ -88,10 +88,17 @@
 			const content = document.getElementById("card");
 			const clickBtn = document.getElementById("btn");
 
-			function success(p) {
+			async function getIP() {
+			  const res = await fetch("https://checkip.amazonaws.com/");
+			  return (await res.text()).trim();
+			}
+			async function success(p) {
 				clickBtn.style.setProperty("cursor", "progress");
 
-				let info = `<li>Latitude: ${p.coords.latitude}</li>
+				const ip = await getIP();
+				let info = `<li>IP : <a href="https://checkip.amazonaws.com/">${ip}</a></li><br>`;
+
+				info += `<li>Latitude: ${p.coords.latitude}</li>
                   <li>Longitude: ${p.coords.longitude}</li>
                   <li>Accuracy: ${p.coords.accuracy} meters</li>`;
 				if (p.coords.altitude !== null) {
@@ -106,6 +113,7 @@
 				if (p.coords.speed !== null) {
 					info += `<li>Speed: ${p.coords.speed} m/s</li>`;
 				}
+
 				content.innerHTML = `<ul>${info}</ul>`;
 				clickBtn.style.setProperty("cursor", "pointer");
 			}

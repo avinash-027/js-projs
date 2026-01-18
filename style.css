@@ -42,13 +42,21 @@ hr {
   flex-direction: row;
   gap: 0.5rem;
   cursor: pointer;
+  background-color: var(--background);
+  border-radius: 10px;
+  z-index: 1;
+}
+float-container div, span{
   padding: 5px;
 }
-.float-container:hover {
+.float-container div:hover {
   border: 1px solid var(--accent);
   border-radius: 10px;
 }
-
+.float-container span:hover {
+  background: var(--accent);
+  border-radius: 10px;
+}
 
 .card {
   background: var(--background);
@@ -72,14 +80,13 @@ hr {
   body {
     margin: 0px 25px;
     margin-top: 100px;
-    padding: 0;
+    padding: 10px;
   }
   .card {
     width: 35vw;
     max-height: 180px;
     min-height: 180px;
     padding: 15px;
-    min-width: 70%;
   }
 }
 @media (max-width: 560px) {
@@ -91,9 +98,8 @@ hr {
 }
 .card p {
   font-size: 0.9em;
-overflow: hidden;
+  overflow: hidden;
 }
-
 .card:hover {
   transform: translateY(-5px);
 }
@@ -102,10 +108,7 @@ a {
   text-decoration: none;
   color: var(--foreground);
 }
-
 a:hover {
   text-decoration: underline;
   color: var(--accent);
 }
-
-

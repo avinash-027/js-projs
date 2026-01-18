@@ -11,7 +11,6 @@ body {
     color: #fff;
     border: 0;
 }
-
 .button:hover {
     background-color: rgb(101, 75, 66);
 }
@@ -24,11 +23,10 @@ body {
     left: 0;
     top: 0;
     height: 100%;
-    width: 100%;
+    width: auto;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.2);
 }
-
 /* MODAL IN */
 .modal-content {
     background-color: #f4f4f4;
@@ -78,7 +76,6 @@ body {
     font-size: 50px;
     float: right;
 }
-
 .closeBtn:hover {
     color: gray;
     text-decoration: none;
