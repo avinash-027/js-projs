@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Geolocation</title>
+		<style>
+			:root {
+				--bg-color: #323437;
+				--main-color: #e2b714;
+				--caret-color: #e2b714;
+				--sub-color: #646669;
+				--sub-alt-color: #2c2e31;
+				--text-color: #d1d0c5;
+				--error-color: #ca4754;
+				--error-extra-color: #7e2a33;
+				--colorful-error-color: #ca4754;
+				--colorful-error-extra-color: #7e2a33;
+			}
+			body {
+				font-family:
+					"Fira Code", "JetBrains Mono", Monaco, Consolas,
+					"Ubuntu Mono", monospace, "Lucida Sans", "Segoe UI",
+					"Courier New", Courier;
+				background: var(--bg-color);
+				color: var(--main-color);
+				margin: 25px;
+				padding: 2rem;
+			}
+			main {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			#btn {
+				margin-top: 10px;
+				padding: 10px 25px;
+				border: 1px solid var(--text-color);
+				border-radius: 10px;
+				width: 350px;
+				font-size: 20px;
+				cursor: pointer;
+				background-color: var(--main-color);
+				font-family:
+					"Fira Code", "JetBrains Mono", Monaco, Consolas,
+					"Ubuntu Mono", monospace, "Lucida Sans", "Segoe UI",
+					"Courier New", Courier;
+			}
+			#card {
+				background: var(--sub-alt-color);
+				color: var(--main-color);
+				padding: 15px;
+				margin: 25px 1px;
+				border: 3.5px double var(--sub-color);
+				border-radius: 5px;
+				width: 400px;
+				max-height: 400px;
+				min-height: 350px;
+				transition: 0.2s;
+				word-wrap: break-word;
+				/* Break long words */
+				overflow-wrap: break-word;
+				/* Ensures support */
+				white-space: normal;
+				/* Allow wrapping */
+			}
+			hr {
+				height: 2px;
+				background-color: var(--sub-color);
+			}
+			h1,p,a {
+				color: var(--main-color);
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Geolocation API</h1>
+		<p>about <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API" target="_blank">geolocation api mdn</a></p>
+		<hr />
+		<main>
+			<button id="btn">Click</button>
+			<div id="card"></div>
+		</main>
+
+		<script>
+			const content = document.getElementById("card");
+			const clickBtn = document.getElementById("btn");
+
+			function success(p) {
+				clickBtn.style.setProperty("cursor", "progress");
+
+				let info = `<li>Latitude: ${p.coords.latitude}</li>
+                  <li>Longitude: ${p.coords.longitude}</li>
+                  <li>Accuracy: ${p.coords.accuracy} meters</li>`;
+				if (p.coords.altitude !== null) {
+					info += `<li>Altitude: ${p.coords.altitude} meters</li>`;
+				}
+				if (p.coords.altitudeAccuracy !== null) {
+					info += `<li>Altitude Accuracy: ${p.coords.altitudeAccuracy} meters</li>`;
+				}
+				if (p.coords.heading !== null) {
+					info += `<li>Heading: ${p.coords.heading} degrees</li>`;
+				}
+				if (p.coords.speed !== null) {
+					info += `<li>Speed: ${p.coords.speed} m/s</li>`;
+				}
+				content.innerHTML = `<ul>${info}</ul>`;
+				clickBtn.style.setProperty("cursor", "pointer");
+			}
+			function error(err) {
+				console.error(err);
+				content.innerHTML = `
+			    <strong>Error:</strong> ${err.message}<br>
+			    <strong>Code:</strong> ${err.code}<br><br>
+			    Make sure location services are ON and browser is allowed to access location.
+			  `;
+			}
+			const options = {
+				enableHighAccuracy: true,
+				timeout: 10000,
+				maximumAge: 0,
+			};
+			clickBtn.onclick = () =>
+				navigator.geolocation.getCurrentPosition(
+					success,
+					error,
+					options,
+				);
+			content.innerHTML = `Geolocation is supported by this browser: ${("geolocation" in navigator).toString().toUpperCase()}`;
+		</script>
+	</body>
+</html>

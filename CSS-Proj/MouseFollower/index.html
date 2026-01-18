@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Follower Effect - Floating Icon</title>
+
+    <style>
+        /* Basic global styles */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: aqua;
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Floating Point Styles */
+        #Point {
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            width: 40px;
+            height: 40px;
+            transition: all 140ms ease;
+            /* transition: all 1200ms cubic-bezier(0.4, 0, 0.2, 1); */
+        }
+
+        /* For smoother opacity transition when toggling */
+        .hidden {
+            opacity: 0;
+        }
+
+        /* Toggle buttons */
+        .toggle-container {
+            margin: auto auto;
+            border: 2px dotted grey;
+            border-radius: 25px;
+            padding: 10px;
+            background-color: hsl(48, 92%, 86%);
+        }
+
+        .toggle-button {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating Point Image -->
+    <img id="Point" src="https://cdn-icons-png.flaticon.com/128/2740/2740706.png" alt="Point">
+
+    <!-- Toggle Buttons -->
+    <div class="toggle-container">
+        <input type="radio" id="enable" name="toggle" class="toggle-button" checked aria-checked="true">
+        <label for="enable">Enable</label>
+        <input type="radio" id="disable" name="toggle" class="toggle-button">
+        <label for="disable">Disable</label>
+    </div>
+
+    <script>
+        // Reference to the Point image
+        const Point = document.getElementById('Point');
+        const enableToggle = document.getElementById('enable');
+        const disableToggle = document.getElementById('disable');
+
+        // Function to move Point based on mouse position
+        function movePoint(event) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+            // Center the image at the cursor
+            Point.style.left = `${mouseX - (Point.width / 2)}px`;
+            Point.style.top = `${mouseY - (Point.height / 2)}px`;
+        }
+
+        document.addEventListener('mousemove', movePoint); // Start moving with mouse
+
+        // Toggle behavior to start or stop following the mouse
+        enableToggle.addEventListener('change', () => {
+            document.addEventListener('mousemove', movePoint); // Start moving with mouse
+            Point.classList.remove('hidden');
+        });
+
+        disableToggle.addEventListener('change', () => {
+            document.removeEventListener('mousemove', movePoint); // Stop moving with mouse
+            Point.classList.add('hidden');
+        });
+    </script>
+
+</body>
+
+</html>

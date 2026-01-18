@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            margin: 0 auto;
+            padding: 0;
+            font-size: larger;
+            font-family: Montserrat;
+        }
+
+        .weatherApp {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+
+            width: 800px;
+            margin-top: 3.7rem;
+        }
+
+        article {
+            font-size: 0.73rem;
+            text-align: left;
+            word-spacing: .3rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="weatherApp container">
+        <h1>Weather App <i class="fa-solid fa-cloud-sun-rain"></i></h1>
+        <form role="group">
+            <input id="inputCity" type="text" name="text" placeholder="Type Area name here" aria-label="Text">
+            <input id="searchSubmit" type="submit" value="Search" />
+        </form>
+
+        <div class="Report" style="width: 500px; text-align: center; font-size:medium;">
+            <!-- <span aria-busy="true">Loading...</span> -->
+            <!-- <article aria-busy="true"></article> -->
+
+        </div>
+    </div>
+
+    <script src="scriptmeteo.js">
+        // https://www.weatherapi.com/docs/
+        // https://api.openweathermap.org/data
+        // https://open-meteo.com/en/docs
+    </script>
+</body>
+
+</html>

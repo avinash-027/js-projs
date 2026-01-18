@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS Projects | A027</title>
+  <link rel="stylesheet" href='style.css'>
+</head>
+<body>
+  <div class="float-container">
+    <span id="theme1" title="Dark Theme">🌑</span>
+    <span id="theme2" title="Light Theme">⚪</span>
+    <span id="theme3" title="Night Theme">🌃</span>
+    <a href="https://github.com/avinash-027" target="_blank" title="GitHub"><span>🔗</span></a>
+  </div>
+  <h1 style="text-align: center">JavaScript Mini-Projects</h1>
+  <hr>
+  <span onclick="diaModal.showModal()" style="cursor: pointer;">[?]</span>
+  <dialog id="diaModal" class="dialog">
+    <p>collection of javascript related simple projects</p>
+    <form method="dialog">
+      <button style="background-color: black;padding: 1em 2em;color: #fff;border: none;cursor: pointer;" >Close</button>
+    </form>
+  </dialog>
+  <div id="projs"></div>
+  <script src="script.js"></script>
+</body>
+
+</html>

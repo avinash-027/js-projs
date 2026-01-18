@@ -1,0 +1,393 @@
+:root{
+    --background: #0D1224;
+    --primary: #181E33;
+    --secondary: #26FFE3;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.container{
+    width: 100%;
+    min-height: 100vh;
+    background: var(--background);
+    padding: 10px;
+    
+    position: relative;
+}
+
+/* .hover1:hover{box-shadow: 2px 2px 2px rgba(83, 82, 82, 0.2);}
+.hover:hover{ box-shadow: 2px 2px  2px rgba(206, 204, 204, 0.5);} */
+
+.arrow{ 
+    position: absolute; 
+    bottom: 0px;
+    left: 0px;
+    background-color: transparent;
+}
+
+.footer {
+    position: relative;
+    bottom: 0px;
+    left: 0px;
+
+    font-size: 14px;
+    color: #000000;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+}
+
+.footer a{
+    text-decoration: none;
+    display: block;
+}
+
+.stats-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 0;
+    padding: 20px;
+    border-radius: 22px;
+    background-color: var(--background);
+    box-shadow: 1px 1px 1px  black;
+}
+
+/* Progress bar styles */
+#progressBar{
+    width: 100%;
+    height: 10px;
+    background-color: var(--secondary);
+    opacity: 0.7;
+    border-radius: 5px;
+}
+
+#progress{
+    height: 100%;
+    background-color: var(--primary);
+    opacity: 0.7;
+    border-radius: 5px;
+    width: 0%;
+    transition:  200ms ease;
+}
+
+/* stats number styling */
+#numbers{
+    width: 90px;
+    height: 90px;
+    background-color: var(--secondary);
+    opacity: 0.99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    border-radius: 55%;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.head{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-grow: 1;
+    max-width: 71%;
+}
+
+.todo-list-head h2{
+    color: var(--secondary);
+}
+
+.todo-list-head p{
+    color: var(--secondary);
+    margin-top: 3px;
+}
+.todo-list-head i{
+    width: 25px;
+    margin-left: 10px;
+}
+
+.todo-list-head{
+    width: 100%;
+    max-width: 540px;
+    background: var(--primary);
+    margin: 100px auto 20px;
+    padding: 40px 30px 70px;
+    border-radius: 20px;   
+}
+
+.row{
+    display: flex; /*use flex box horizontaol layout*/
+    align-items: center; /*Vertically center items*/ 
+    justify-content: center;
+    text-align: center;
+    box-sizing:border-box;
+
+    background: var(--background);
+    border-radius: 25px;
+    padding-left: 20px;
+    margin-top: 25px;
+    box-shadow: 1px 1px 1px  black;
+    height: auto;
+}
+
+.warning::placeholder{
+    color: rgba(245, 97, 97, 0.7);
+}
+
+.warning-icon {
+    color: rgba(255, 0, 0, 0.7);
+    font-size: 20px;
+    margin-left: 10px;
+    display: none; /* Initially hidden */
+}
+
+.edit-input{
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    color: white;
+    width: 100%;
+
+    white-space: inherit;
+    padding-right: 15%;
+}
+.input-container{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    color: whitesmoke;
+
+    padding: 10px 4px;
+    width: 100%;
+}
+
+.addButton{
+    width: auto;
+    border: none;
+    outline: none;
+    appearance: none;
+    
+    background-color: var(--secondary);
+    color: var(--primary);
+
+    font-size: 15px;
+    padding: 12px 30px;
+    border-radius: 40px 0px 0px 40px; 
+    cursor: pointer;
+}
+
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-btn{
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: var(--primary);
+    color: var(--secondary);
+
+    font-size: 15px;
+    padding: 11px ;     
+    border-radius: 0px 40px 40px 0px;
+    cursor: pointer;
+}
+.custom-dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--primary);
+    max-width: 140px;
+    z-index: 1;
+    border-radius: 20px;
+    top: 2px;
+    left: 2.48cm;
+    font-size: 15px;
+    text-align: center;
+}
+.dropdown-btn:hover + .dropdown-content{
+    display: block;
+}
+/* Ensure dropdown content stays visible when hovering over it */
+.custom-dropdown .dropdown-content:hover {
+    display: block; 
+}
+
+.filter-option{
+    width: auto;
+    color: whitesmoke;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    border-radius: 30px;
+    
+    display: flex;
+    justify-content: first baseline;
+    align-items: center;
+}
+.filter-option:hover{
+    color: var(--primary);
+    background-color: var(--secondary);
+}
+
+ul{
+    margin: 15px auto;
+    width: 100%;
+}
+ul li{
+    list-style: none;
+    font-size: 15px;
+    margin: 5px 0;
+    padding: 15px 8px 12px 55px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    color:rgb(205, 213, 220);
+
+    text-overflow: ellipsis;   /* Truncate the text */
+    overflow: hidden;          /* Hide overflowed content */
+    /* white-space: nowrap;        */
+    /* Prevent the text from wrapping to the next line */
+    white-space: normal; 
+    /* Allow text to wrap within the list item  - default*/
+
+    padding-right: 15%; /* Add extra space for the buttons on the right */
+ 
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between;
+
+    transition:  200ms ease;
+    box-sizing: border-box;
+}
+ul li::before{
+    content: '\f111'; /* Font Awesome "circle" icon */
+    font-family: "Font Awesome 6 Free"; 
+    font-weight: 900; /* Ensure the icon is visible */
+    font-size: 21px;
+    color: var(--secondary);
+    position: absolute;
+    top: 15px;
+    left: 16px;
+}
+ul li.checked{
+    color: var(--secondary) ;
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+ul li.checked::before {
+    content: '\f058'; /* Font Awesome "check-circle" icon */
+    font-family: "Font Awesome 6 Free"; 
+    font-weight: 900; /* Ensure the icon is visible */
+    font-size: 21px;
+    color: var(--secondary);
+    opacity: 0.4;
+    position: absolute;
+    top: 15px;
+    left: 16px;
+}
+
+ul li span{
+    padding: 10px;
+    border-radius: 80%;
+    text-align: center;
+    cursor: pointer;
+    color: var(--secondary);
+
+    transition:  200ms ease;
+
+    position:absolute;
+    right: 10px;
+}
+ul li span:hover{
+    color: var(--primary);
+    background-color: var(--secondary); 
+}
+
+ul li .edit-icon { 
+    position:absolute; 
+    right: 55px;
+
+    transition: 200ms ease;
+
+    width: auto;height: auto;
+    
+    padding: 10px;
+    border-radius: 80%;
+    text-align: center;
+    cursor: pointer;
+    color: var(--secondary);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.edit-icon:hover{
+    color: var(--primary);
+    background-color: var(--secondary); 
+}
+
+@media screen and (max-width: 480px) {
+    .stats-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        background-color: var(--primary);
+        height: auto;
+    }
+    .todo-list-head {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 30px 20px 60px;  /* Reduce padding on mobile */
+    }
+    .todo-list-head p{
+        display: none;
+    }
+    .todo-list-head h2{
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    .row {
+        flex-direction: column; /* Stack items vertically */
+        align-items: stretch; /* Stretch items to full width */
+        padding: 10px; /* Add padding for better spacing */
+        margin-top: 15px; /* Adjust margin for spacing */
+    }
+    input {
+        width: 75%;
+        padding: 10px; 
+        font-size: 16px; 
+    }
+    .addButton {
+        width: 100%; /* Make buttons full width */
+        padding: 10px; /* Increase padding for better touch targets */
+        font-size: 15px; /* Slightly larger font size for readability */
+        border-radius: 20px; /* Adjust border radius for a more rounded look */
+        margin: 5px 0; /* Add margin for spacing between buttons */
+    }
+    /* .custom-dropdown {
+        position: static; 
+        max-width: 100%; 
+        font-size: 16px;
+        text-align: center;
+        padding: 15px;
+    }  */
+    #numbers, footer,.dropdown-btn, .arrow{
+        display: none;
+    }
+}
+

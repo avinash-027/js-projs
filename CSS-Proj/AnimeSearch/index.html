@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Search</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.slate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .anime-search-container {
+            margin: 0px auto;
+            height: 87vh;
+
+            width: clamp(350px, 80%, 1200px);
+        }
+
+        header {
+            margin-top: 4rem;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .grid .card p {
+            font-size: 0.8rem;
+            margin: 5px auto;
+        }
+
+        .grid .card img {
+            width: 12rem;
+            height: 16rem;
+        }
+
+        .grid .card details summary {
+            font-size: 0.8rem;
+        }
+
+        .grid .card details p {
+            font-size: 0.6rem;
+        }
+
+        .loading {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="anime-search-container">
+        <header>
+            <h1>Anime Search</h1>
+        </header>
+        <main>
+            <form action="" role="search">
+                <input autocomplete="off" autocapitalize="on" type="text" id="search-input"
+                    placeholder="Search for an anime" />
+                <button id="search-button" type="submit" onclick="getAnimeData()">Search</button>
+            </form>
+
+            <div id="anime-data">
+                <!-- anime-data -->
+            </div>
+        </main>
+    </div>
+
+    <script type="text/javascript">
+        const API_URL = 'https://api.jikan.moe/v4';
+
+        function getAnimeData() {
+            const animeData = document.getElementById('anime-data');  // Reference to the container div
+            const searchInput = document.getElementById("search-input").value;
+
+            const searchButton = document.getElementById("search-button");
+
+            if (searchInput.trim() === '') {
+                return;
+            }
+
+            // Clear previous results before fetching new data
+            animeData.innerHTML = '';
+
+            // Disable the button to prevent fast double clicks
+            searchButton.disabled = true;
+
+            // Show loading indicator while fetching data
+            const loadingIndicator = document.createElement("article");
+            loadingIndicator.className = "loading";
+            loadingIndicator.setAttribute("aria-busy", "true");
+            loadingIndicator.innerHTML = "Loading...";
+            animeData.appendChild(loadingIndicator);
+
+            // Make the API request
+            fetch(`${API_URL}/anime?q=${searchInput}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    // Remove loading indicator and Showing the results
+                    animeData.innerHTML = '<p>Search results for "' + searchInput.toUpperCase() + '": </p>';
+
+                    if (data.data) {
+                        console.log(searchInput);
+                        // Create a list of anime cards
+                        console.log("data = ", data);
+                        console.log("data.data = ", data.data);
+
+                        const length = data.data.length;  // Get the length of the data array
+
+                        // Loop over the data in steps of 4 for grid creation
+                        for (let x = 0; x < length; x = x + 4) {
+                            const grid = document.createElement("div");
+                            grid.className = "grid";  // Add a class to the grid for styling
+
+                            // Loop over the next 4 items in the array
+                            for (let y = 0; y < 4; y++) {
+                                if (x + y < length) {
+                                    const anime = data.data[x + y];  // Get the anime item
+
+                                    // Get the image URL safely
+                                    const imageUrl = anime.images?.jpg?.image_url || 'https://via.placeholder.com/150';
+                                    // Create the anime card
+                                    const animeDataDiv = document.createElement("article");
+                                    animeDataDiv.classList.add("card");
+                                    // Insert HTML content into the created div
+                                    animeDataDiv.innerHTML = `<div>
+                                <img src="${imageUrl}" alt="Image of ${anime.title}">
+                                <p><b>Title:</b> ${anime.title}</p>
+                                <p><b>Score:</b> ${anime.score || 'Unknown'}</p>
+                                <p><b>Year:</b> ${anime.year || 'Unknown'}</p>
+                                <p><b>Type:</b> ${anime.type || 'Unknown'}</p>
+                                <p><b>Total Episodes:</b> ${anime.episodes || 'N/A'}</p>
+                                <p><b>Duration:</b> ${anime.duration || 'Unknown'}</p>
+                                <p><b>Status:</b> ${anime.status || 'N/A'}</p>
+                                <details>
+                                    <summary><b>Synopsis:</b></summary>
+                                    <p> ${anime.synopsis || 'No synopsis available.'}</p>
+                                </details></div>`;
+
+                                    // Append the card to the grid
+                                    grid.appendChild(animeDataDiv);
+                                }
+                            }
+
+                            // After the inner loop, append the grid (containing 4 cards) to the container
+                            animeData.appendChild(grid);
+                        }
+                    } else {
+                        animeData.innerHTML = "<p>No anime found. Please try another search.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    animeData.innerHTML = "<p>Failed to load anime data. Please try again later.</p>";
+                })
+                .finally(() => {
+                    // Enable the search button after data has been loaded
+                    searchButton.disabled = false;
+
+                    document.getElementById("search-input").value = ""
+                });
+        }
+    </script>
+
+</body>
+
+</html>

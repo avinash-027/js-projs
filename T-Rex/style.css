@@ -1,0 +1,121 @@
+:root {
+  --background: linear-gradient(135deg, #0d1225, #4e085f);
+  --primary-color: #3b3b3b;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+}
+#game {
+  background-color: #ffffff;
+
+  margin: 0 auto;
+  width: 600px;
+  height: 200px;
+  border: 1px solid gray;
+  /* position: relative; */
+
+  transition: 1s ease;
+}
+#character {
+  width: 50px;
+  height: 50px;
+  /* position: absolute; */
+  /* bottom: 0; */
+
+  background-image: url(img/trex.png);
+  background-size: 50px 50px;
+
+  position: relative;
+  top: 150px;
+}
+@keyframes jump {
+  0% {
+    top: 150px;
+  }
+  30% {
+    top: 30px;
+  }
+  50% {
+    top: 50px;
+  }
+  70% {
+    top: 130px;
+  }
+  100% {
+    top: 150px;
+  }
+}
+
+.animate {
+  animation: jump 500ms;
+}
+
+#block {
+  width: 20px;
+  height: 40px;
+  margin: 0;
+  position: relative;
+  top: 110px;
+  left: 580px;
+
+  background: url(img/cactus.png);
+  background-size: 20px 40px;
+  animation: blockAnimation 1s infinite linear;
+}
+@keyframes blockAnimation {
+  0% {
+    left: 580px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+#ground {
+  border: 1px solid hsl(0, 0%, 32%);
+  width: 600px;
+  height: 10px;
+  background-color: hsl(0, 0%, 32%);
+  position: relative;
+}
+.restart {
+  border: 1px solid #0c041f80;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  width: 200px;
+  height: 30px;
+  color: rgb(247, 247, 247);
+  background-color: hsla(258, 19%, 54%, 0.402);
+  font-size: 1.3rem;
+  cursor: pointer;
+
+  visibility: hidden; /* Hide the button without removing it from the layout */
+}
+.gameOver {
+  font-family: "Courier New", Courier, monospace;
+  border-radius: 20px;
+  text-align: center;
+  margin-top: 5px;
+  padding: 1px;
+  width: 200px;
+  height: 30px;
+  color: rgb(253, 0, 0);
+  position: relative;
+  left: 190px;
+  font-size: 2rem;
+
+  visibility: hidden; /* Hide game over text without removing it from layout */
+}

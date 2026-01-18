@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"  data-theme = "dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Converter App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.purple.min.css">
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>Weight Converter App
+                <div style="float: inline-end;">
+                    <!-- <a href="http://" target="_blank" rel="noopener noreferrer" class="contrast">Git</a> -->
+                    <input name="terms" type="checkbox" id="theme" role="switch" />
+                </div>
+            </h1>
+
+        </header>
+
+        <form>
+            <input type="number" id="inputWgtValue" placeholder="Enter Weight value" />
+
+            <fieldset>
+                <legend>Select Input Unit</legend>
+                <label>
+                    <input type="radio" name="input" value="gm" id="gm1" />
+                    Grams
+                </label>
+                <label>
+                    <input type="radio" name="input" value="kg" id="kg1" />
+                    KiloGrams
+                </label>
+                <label>
+                    <input type="radio" name="input" value="pounds" id="pounds1" checked />
+                    Pounds
+                </label>
+            </fieldset>
+        </form>
+
+        <section id="output">
+            <!-- <article aria-busy="true"></article> -->
+
+            <article>
+                <hgroup>
+                    <h4>Input</h4>
+                    <p id="WgtInputVal">...</p>
+                </hgroup>
+                <div class="grid">
+                    <article>
+                        <hgroup>
+                            <h4>Grams:</h4>
+                            <p id="WgtGramsVal">...</p>
+                        </hgroup>
+                    </article>
+                    <article>
+                        <hgroup>
+                            <h4>KiloGrams:</h4>
+                            <p id="WgtKiloGramsVal">...</p>
+                        </hgroup>
+                    </article>
+                    <article>
+                        <hgroup>
+                            <h4>Pounds:</h4>
+                            <p id="WgtPoundsVal">...</p>
+                        </hgroup>
+                    </article>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

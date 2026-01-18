@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a Modal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <button id="modalBtn" class="button" type="button">Click Here</button>
+
+    <div id="simpleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="closeBtn">&times;</span>
+                <h1>Modal Header</h1>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
+                    error esse, ut facere quibusdam iure numquam reiciendis voluptate
+                    earum doloremque quia est laborum atque voluptates illum dolore quis
+                    minima vero! Repellendus, corrupti odio?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <h3>modal Footer</h3>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <span onclick="diaModal.showModal()" style="cursor: pointer">[?]</span>
+    <dialog id="diaModal" class="dialog">
+        <h1>SIMPLE showModal</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error,
+            ad optio natus fuga in odio qui?
+        </p>
+        <form method="dialog">
+            <button class="button">Close</button>
+        </form>
+    </dialog>
+    <hr>
+    <pre>
+    <code>
+        &lt;span onclick="diaModal.showModal()" style="cursor: pointer;"&gt;[?]&lt;/span&gt;
+        &lt;dialog id="diaModal" class="dialog"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet...&lt;/p&gt;
+        &lt;form method="dialog"&gt;
+            &lt;button style="background-color: black;padding: 1em 2em;color: #fff;border: none;" &gt;Close&lt;/button&gt;
+        &lt;/form&gt;
+        &lt;/dialog&gt;
+    </code>
+    </pre>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>

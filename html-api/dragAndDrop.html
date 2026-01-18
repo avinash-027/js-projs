@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Drag & Drop</title>
+		<style>
+			/* Fira Code: https://github.com/tonsky/FiraCode */
+			@import url('https://cdn.staticdelivr.com/gfonts/css2?family=Fira+Code:wght@300..700&display=swap');
+			:root {
+			  --bg-color: #1e1e2e;
+			  --caret-color: #f2cdcd;
+			  --main-color: #cba6f7;
+			  --sub-color: #7f849c;
+			  --sub-alt-color: #181825;
+			  --text-color: #cdd6f4;
+			  --error-color: #f38ba8;
+			  --error-extra-color: #eba0ac;
+			  --colorful-error-color: #f38ba8;
+			  --colorful-error-extra-color: #eba0ac;
+			}
+			body {
+				font-family:
+					"Fira Code", Monaco, Consolas, "Segoe UI", "Courier New", Courier;
+				background: var(--bg-color);
+				color: var(--text-color);
+				margin: 27px 15px;
+				padding: 2rem;
+			}
+			main {
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				gap: 1rem;
+			}
+			section {
+				padding: 20px;
+				background-color: var(--sub-alt-color);
+				height: 200px;
+			}
+			dialog {
+				background-color: var(--bg-color);
+				color: var(--main-color);
+				width: 75%;
+			}
+			hr {
+				height: 2px;
+				background-color: var(--sub-color);
+			}
+			h1, p {
+				color: var(--main-color);
+				text-align: center;
+			}
+			.status {
+				padding: 10px;
+				color: var(--error-color);
+				border: 1px solid var(--main-color);
+				margin: 25px;
+			}
+			section .drag,
+			.drop {
+				padding: 15px;
+				margin: 5px;
+				min-height: 25px;
+				max-height: 88px;
+				border: 1px solid var(--main-color);
+			}
+			.drag {
+				cursor: pointer;
+			}
+			.btn {
+				margin-top: 10px;
+				padding: 10px 25px;
+				border: 1px solid var(--text-color);
+				width: 350px;
+				font-size: 20px;
+				cursor: pointer;
+				background-color: var(--sub-color);
+				font-family: Monaco, Consolas, "Segoe UI", "Courier New";
+			}
+			@media screen and (max-width: 800px) {
+				main {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					gap: 1rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Drag and Drop API</h1>
+		<p>about <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API" target="_blank">HTML Drag and Drop API MDN</a></p>
+		<hr />
+		<div class="status">status</div>
+		<main>
+			<section id="s1">
+				<span onclick="d1.showModal()" style="cursor: pointer"
+					>[?]</span
+				>
+				<div class="drag" id="drag1" draggable="true">Drag1 Me</div>
+				<div class="drop" id="drop1">Drop1 Here</div>
+				<dialog id="d1" class="dialog">
+					<p>This code implements a basic drag-and-drop interaction where a draggable element (`drag1`) can be dropped into a target (`drop1`) while updating a status footer in real time to reflect each drag event.</p>
+					<pre><code>
+	const status = document.querySelector(".status");
+	const drag1 = document.getElementById("drag1");
+	const drop1 = document.getElementById("drop1");
+	drag1.addEventListener("dragstart", () => {
+		status.innerHTML = "drag1 dragstart";
+	});
+	drag1.addEventListener("dragend", () => {
+		status.innerHTML = "drag1 dragend";
+	});
+	drop1.addEventListener("dragenter", () => {
+		status.innerHTML = "drop1 dragenter";
+	});
+	drop1.addEventListener("dragover", (e) => {
+		e.preventDefault();
+		status.innerHTML = 'drop1 dragover'
+	});
+	drop1.addEventListener('dragleave', () => {
+		status.innerHTML = 'drop1 dragleave'
+	});
+	drop1.addEventListener('drop', (e) => {
+		e.preventDefault()
+		status.innerHTML = 'drop2 DROPPED'
+		e.target.appendChild(drag1)
+	});
+					</code></pre>
+					<form method="dialog">
+						<button class="btn">Close</button>
+					</form>
+				</dialog>
+			</section>
+			<section id="s2">
+				<span style="cursor: pointer" onclick="d2.showModal()">[?]</span>
+				<div class="drag" id="drag2" draggable="true">Drag2 Me</div>
+				<div class="drop" id="drop2">Drop2 Here</div>
+				<dialog id="d2" class="dialog">
+					<p>Using dataTransfer; Use dataTransfer for custom data between page elements (IDs, text, JSON). No need for OS files—use e.dataTransfer.files directly.</p>
+					<p><i>drop2 uses dataTransfer to pass the dragged element's ID ("drag2"). Drop target retrieves it with getData() and finds the element dynamically.drop1 hardcodes drag1 directly in drop handler. <strong>No data transfer—drop always assumes drag1 regardless of what was actually dragged.</strong></i></p>
+					<pre><code>
+	const drop2 = document.getElementById('drop2')
+	const drag2 = document.getElementById('drag2')
+	drag2.addEventListener('dragstart', (e) => {
+		status.innerHTML = 'drag2 dragstart'
+		status.style.setProperty('text-align', 'center')
+		e.dataTransfer.setData('text/plain', e.target.id)
+	})
+	drop2.addEventListener('dragover', (e) => {
+		e.preventDefault()
+		status.innerHTML = 'drop2 dragover'
+		status.style.setProperty('text-align', 'center')
+	})
+	drop2.addEventListener('drop', (e) => {
+		e.preventDefault()
+		const data = e.dataTransfer.getData('text/plain')
+		const draggedElement = document.getElementById(data)
+		e.target.appendChild(draggedElement)
+		status.innerHTML = 'drop DROPPED'
+		status.style.setProperty('text-align', 'center')
+	})
+					</code></pre>
+					<form method="dialog">
+						<button class="btn">Close</button>
+					</form>
+				</dialog>
+			</section>
+			<section id="s3">
+				<span onclick="d3.showModal()" style="cursor: pointer">[?]</span>
+				<div class="drop" id="drop3" style="height: 200px; background: grey">Drop files here from file explorer</div>
+				<dialog id="d3" class="dialog">
+					<p>Drop files here from file explorer: using e.dataTransfer.files</p>
+					<pre><code>	
+	const drop3 = document.getElementById("drop3");
+	drop3.addEventListener("dragover", (e) => {
+		e.preventDefault();
+		// status.innerHTML = 'files : dragover'
+		status.style.setProperty("text-align", "right");
+	});
+	drop3.addEventListener('dragenter', (e) => {
+		status.style.setProperty("text-align", "right");
+		status.innerHTML = 'files Entered : dragenter'
+	});
+	drop3.addEventListener("drop", (e) => {
+		e.preventDefault();
+		const files = e.dataTransfer.files;
+		if (files.length > 0) {
+			status.innerHTML = `Dropped ${files.length} file(s): ${Array.from(files,).map((f) => f.name).join(", ")}`;}
+	});
+					</code></pre>
+					<form method="dialog">
+						<button class="btn">Close</button>
+					</form>
+				</dialog>
+			</section>
+		</main>
+		<script>
+			const drop3 = document.getElementById("drop3");
+			drop3.addEventListener("dragover", (e) => {
+				e.preventDefault();
+				// status.innerHTML = 'files : dragover'
+				status.style.setProperty("text-align", "right");
+			});
+			drop3.addEventListener('dragenter', (e) => {
+				status.style.setProperty("text-align", "right");
+				status.innerHTML = 'files Entered : dragenter'
+			});
+			drop3.addEventListener("drop", (e) => {
+				e.preventDefault();
+				const files = e.dataTransfer.files;
+				if (files.length > 0) {
+					status.innerHTML = `Dropped ${files.length} file(s): ${Array.from(files,).map((f) => f.name).join(", ")}`;}
+			});
+
+			const drop2 = document.getElementById("drop2");
+			const drag2 = document.getElementById("drag2");
+			drag2.addEventListener("dragstart", (e) => {
+				status.innerHTML = "drag2 dragstart";
+				status.style.setProperty("text-align", "center");
+				e.dataTransfer.setData("text/plain", e.target.id);
+			});
+			drag2.addEventListener("dragend", () => {
+				status.innerHTML = "drag2 dragend";
+				status.style.setProperty("text-align", "center");
+			});
+			drop2.addEventListener("dragover", (e) => {
+				e.preventDefault();
+				status.innerHTML = "drop2 dragover";
+				status.style.setProperty("text-align", "center");
+			});
+			drop2.addEventListener("drop", (e) => {
+				e.preventDefault();
+				const data = e.dataTransfer.getData("text/plain");
+				const draggedElement = document.getElementById(data);
+				e.target.appendChild(draggedElement);
+				status.innerHTML = "drop DROPPED";
+				status.style.setProperty("text-align", "center");
+			});
+
+			const status = document.querySelector(".status");
+			const drag1 = document.getElementById("drag1");
+			const drop1 = document.getElementById("drop1");
+			drag1.addEventListener("dragstart", () => {
+				status.innerHTML = "drag1 dragstart";
+				status.style.setProperty("text-align", "left");
+			});
+			drag1.addEventListener("dragend", () => {
+				status.innerHTML = "drag1 dragend";
+				status.style.setProperty("text-align", "left");
+			});
+			drop1.addEventListener("dragenter", () => {
+				status.innerHTML = "drop1 dragenter";
+				status.style.setProperty("text-align", "left");
+			});
+			drop1.addEventListener("dragover", (e) => {
+				e.preventDefault();
+				status.innerHTML = "drop1 dragover";
+				status.style.setProperty("text-align", "left");
+			});
+			drop1.addEventListener("dragleave", () => {
+				status.innerHTML = "drop1 dragleave";
+				status.style.setProperty("text-align", "left");
+			});
+			drop1.addEventListener("drop", (e) => {
+				e.preventDefault();
+				status.innerHTML = "drop2 DROPPED";
+				status.style.setProperty("text-align", "left");
+				e.target.appendChild(drag1);
+			});
+		</script>
+	</body>
+</html>
